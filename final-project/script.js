@@ -1,14 +1,17 @@
+// ~~~~~~~~~~~~~~~~ MIDI INITIALIZATION ~~~~~~~~~~~~~~~~~~~
 // Enable WebMidi API and handle any errors if it fails to enable.
 // This is necessary to work with MIDI devices in the web browser.
 await WebMidi.enable();
-
-// let transposition = 0;
 
 // Initialize variables to store the first MIDI input and output devices detected.
 // These devices can be used to send or receive MIDI messages.
 let myInput = WebMidi.inputs[0];
 let myOutput = WebMidi.outputs[0].channels[1];
 
+
+
+
+// ~~~~~~~~~~~~~~~~ DROPDOWNS AND KNOBS/SLIDERS ~~~~~~~~~~~~~~~~~~~
 // Get the dropdown elements from the HTML document by their IDs.
 // These dropdowns will be used to display the MIDI input and output devices available.
 let dropIns = document.getElementById("dropdown-ins");
@@ -16,11 +19,18 @@ let dropOuts = document.getElementById("dropdown-outs");
 let slider = document.getElementById("slide");
 
 
-// slider.addEventListener("change", function () {
-//   transposition = slider.value;
-//   console.log(transposition);
-// });
 
+
+//~~~~~~~~~~~~~~~~ DELAY KNOB/SLIDER FUNCTION ~~~~~~~~~~~~~~~~~~~
+slider.addEventListener("change", function () {
+  transposition = slider.value;
+  console.log(transposition);
+});
+
+
+
+
+// ~~~~~~~~~~~~~~~~ DROPDOWN OPTIONS ~~~~~~~~~~~~~~~~~~~
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
 WebMidi.inputs.forEach(function (input, num) {
@@ -34,6 +44,9 @@ WebMidi.outputs.forEach(function (output, num) {
 });
 
 
+
+
+// ~~~~~~~~~~~~~~~~ HARMONIZER VOICES ~~~~~~~~~~~~~~~~~~~
   //define MIDI processing function
   const midiProcess = function (midiNoteInput) {
     let pitch = midiNoteInput.note.number + 7;
@@ -49,6 +62,14 @@ WebMidi.outputs.forEach(function (output, num) {
     let midiNote3 = new Note(originalPitch -7, { rawAttack: velocity })
     return midiNote1, midiNote2, midiNote3;
   };
+
+
+// ~~~~~~~~~~~~~~~~ DELAY ~~~~~~~~~~~~~~~~~~~
+const delay = function (midiNoteInput) {
+  let delayTime = slider.value;
+  setTimeout(() => {midiNoteInput}, delayTime)
+}
+
 
   //if you divide a MIDI note number by 12, the remainder will tell you the MIDI pitch class of the number (what note it is) numbers 0-11
 
@@ -93,7 +114,7 @@ dropOuts.addEventListener("change", function () {
   myOutput = WebMidi.outputs[dropOuts.value].channels[1];
 });
 
-
+// ~~~~~~~~~~~~~~~~ NOTES ~~~~~~~~~~~~~~~~~~~
 //standard midi data message is 3 bytes
 //8 bits in a byte
 //timecode pitch 0-127 velocity 0-127

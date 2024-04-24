@@ -12,6 +12,7 @@
 
     <!-- This script tag links to the external JavaScript file that contains the logic for handling MIDI devices. -->
     <script src="script.js" type="module"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <!-- The body section contains the content of the web page. -->
@@ -19,7 +20,7 @@
     <!-- An h1 header that provides a title or a brief description of the page's purpose. -->
     <h2>MIDI Voice Pedal</h2>
 
-    <div>
+    <div class="ins">
       <!-- A division or a section in an HTML document, used here to group the input device selector. -->
       <label for="dropdown-ins">Select a MIDI Input:</label>
       <!-- The label tag defines a label for the select element below. The 'for' attribute specifies which form element the label is bound to. -->
@@ -29,7 +30,7 @@
       </select>
     </div>
 
-    <div>
+    <div class="outs">
       <!-- Another division for grouping the output device selector. -->
       <label for="dropdown-outs">Select a MIDI Output:</label>
       <!-- Similar to the input label, this defines a label for the MIDI output selector. -->
@@ -39,13 +40,46 @@
       </select>
     </div>
 
+    <div class="pedal">
+      <div class="top">
+        <label class="check-label">CHECK</label>
+        <label class="level-label">LEVEL</label>
+        <label class="tone-label">TONE</label>
+        <label class="drive-label">DRIVE</label>
+        <div class="level-dot1"></div>
+        <div class="level-dot2"></div>
+        <div class="level-dot3"></div>
+        <div class="drive-dot1"></div>
+        <div class="drive-dot2"></div>
+        <div class="drive-dot3"></div>
+        <div class="check-indicator"></div>
+        <div class="level">
+          <div class="level-knob"></div>
+        </div>
+        <div class="tone">
+          <div class="tone-knob"></div>
+        </div>
+        <div class="drive">
+          <div class="drive-knob">
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <label class="output-label">OUTPUT</label>
+        <label class="input-label">INPUT</label>
+        <div class="input"></div>
+        <div class="output"></div> 
+        <div class="button"></div>
+        <div class="base"></div>
+      </div>
+    </div>
+
     <!-- <div>
       <label for="slide">Transposition Amount</label>
       <input type="range" min="-12" max="12" />
     </div> -->
 
-    <div>
-      <p>this MIDI processor will add a harmonizer feature and adjustable delay to your MIDI voice!</p>
-    </div>
   </body>
 </html>
+
+
