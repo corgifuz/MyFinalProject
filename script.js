@@ -90,13 +90,27 @@ WebMidi.outputs.forEach(function (output, num) {
 
 
 //~~~~~~~~~~~~~~~~ DELAY KNOB FUNCTION ~~~~~~~~~~~~~~~~~~~
-let delayTime = 0;
-delayKnob.addEventListener("change", function(){
-  delayTime = delayKnob.value;
-  console.log(delayTime);
-});
+
+// var delayTime = 0;
+// delayKnob.addEventListener("change", function(){
+// delayTime = delayKnob.value;
+// console.log(delayTime);
+// });
+
+const delayFunc = function (midiNoteInput) {
+  let originalPitch = midiNoteInput.note.number;
+  let velocity = midiNoteInput.note.rawAttack;
 
 
+
+  let delayNote = new Note(originalPitch, { rawAttack: velocity });
+
+  //   setTimeout(() => {
+  //   delayNote;
+  // }, delayTime);
+
+  return delayNote;
+};
 
 
 // //~~~~~~~~~~~~~~~~ DELAY APPLICATION ~~~~~~~~~~~~~~~~~~~
@@ -147,8 +161,15 @@ dropIns.addEventListener("change", function () {
     // When a note on event is received, send a note on message to the output device.
     // This can trigger a sound or action on the MIDI output device.
     myOutput.sendNoteOn(midiProcess(someMIDI));
+    // delayOutput.sendNoteOn(delayFunc(someMIDI));
+    let delayTime = 0;
+    delayKnob.addEventListener("change", function(){
+    delayTime = delayKnob.value;
+    console.log(delayTime);
+    });
+
     setTimeout(() => {
-      delayOutput.sendNoteOn(midiProcess(someMIDI));
+      delayOutput.sendNoteOn(delayFunc(someMIDI));
     }, delayTime);
   });
 
@@ -157,6 +178,7 @@ dropIns.addEventListener("change", function () {
     // This signals the end of a note being played.
 
     myOutput.sendNoteOff(midiProcess(someMIDI));
+    delayOutput.sendNoteOff(delayFunc(someMIDI));
   });
 });
 
