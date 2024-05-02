@@ -107,7 +107,11 @@ const delayFunc = function (midiNoteInput) {
 // add velocity and decay to delay!!!!!
 
 //if you divide a MIDI note number by 12, the remainder will tell you the MIDI pitch class of the number (what note it is) numbers 0-11
-
+let delayTime = 0;
+delayKnob.addEventListener("change", function () {
+  delayTime = delayKnob.value * 1000;
+  console.log(delayTime);
+});
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
 dropIns.addEventListener("change", function () {
@@ -128,25 +132,31 @@ dropIns.addEventListener("change", function () {
   myInput.addListener("noteon", function (someMIDI) {
     // When a note on event is received, send a note on message to the output device.
     // This can trigger a sound or action on the MIDI output device.
-    myOutput.sendNoteOn(midiProcess(someMIDI));
-    // delayOutput.sendNoteOn(delayFunc(someMIDI));
-    let delayTime = 0;
-    delayKnob.addEventListener("change", function () {
-      delayTime = delayKnob.value;
-      console.log(delayTime);
-    });
+    let processedMIDI = midiProcess(someMIDI);
 
-    setTimeout(() => {
-      delayOutput.sendNoteOn(delayFunc(someMIDI));
-    }, delayTime);
+    myOutput.sendNoteOn(processedMIDI);
+    // delayOutput.sendNoteOn(delayFunc(someMIDI));
+    if (delayTime > 0) {
+      setTimeout(() => {
+        delayOutput.sendNoteOn(processedMIDI);
+      }, delayTime);
+    }
   });
 
   myInput.addListener("noteoff", function (someMIDI) {
     // Similarly, when a note off event is received, send a note off message to the output device.
     // This signals the end of a note being played.
+    let processedMIDI = midiProcess(someMIDI);
 
-    myOutput.sendNoteOff(midiProcess(someMIDI));
-    delayOutput.sendNoteOff(delayFunc(someMIDI));
+    myOutput.sendNoteOff(processedMIDI);
+    // delayOutput.sendNoteOn(delayFunc(someMIDI));
+    if (delayTime > 0) {
+      setTimeout(() => {
+        delayOutput.sendNoteOff(processedMIDI);
+      }, delayTime);
+    }
+    // myOutput.sendNoteOff(midiProcess(someMIDI));
+    // delayOutput.sendNoteOff(delayFunc(someMIDI));
   });
 });
 
@@ -157,6 +167,7 @@ dropOuts.addEventListener("change", function () {
   // The '.channels[1]' specifies that the script should use the first channel of the selected output device.
   // MIDI channels are often used to separate messages for different instruments or sounds.
   myOutput = WebMidi.outputs[dropOuts.value].channels[1];
+  delayOutput = WebMidi.outputs[dropOuts.value].channels[2];
 });
 
 // ~~~~~~~~~~~~~~~~ NOTES ~~~~~~~~~~~~~~~~~~~
