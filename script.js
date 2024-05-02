@@ -19,10 +19,6 @@ let delayKnob = document.getElementById("delay-knob");
 let highSwitch = document.getElementById("voiceOne-knob");
 let lowSwitch = document.getElementById("voiceTwo-knob");
 
-
-
-
-
 // ~~~~~~~~~~~~~~~~ DROPDOWN OPTIONS ~~~~~~~~~~~~~~~~~~~
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -36,58 +32,44 @@ WebMidi.outputs.forEach(function (output, num) {
   dropOuts.innerHTML += `<option value=${num}>${output.name}</option>`;
 });
 
-
-
-
-
-
-
 // ~~~~~~~~~~~~~~~~ HARMONIZER VOICES ~~~~~~~~~~~~~~~~~~~
-  //define MIDI processing function
-  const midiProcess = function (midiNoteInput) {
+//define MIDI processing function
+const midiProcess = function (midiNoteInput) {
+  let originalPitch = midiNoteInput.note.number;
+  let velocity = midiNoteInput.note.rawAttack;
+
+  //OUTPUT OF ORIGINAL MIDI NOTE INPUT
+  let midiNote1 = new Note(originalPitch, { rawAttack: velocity });
+
+  //HARMONIZER VOICES OUTPUT
+  console.log("highSwitch", highSwitch.checked);
+
+  if (lowSwitch.checked == true && highSwitch.checked == true) {
     let originalPitch = midiNoteInput.note.number;
     let velocity = midiNoteInput.note.rawAttack;
+    let midiNote3 = new Note(originalPitch - 7, { rawAttack: velocity });
+    let midiNote2 = new Note(originalPitch + 7, { rawAttack: velocity });
 
-    //OUTPUT OF ORIGINAL MIDI NOTE INPUT
-    let midiNote1 = new Note(originalPitch, { rawAttack: velocity })
+    return [midiNote1, midiNote2, midiNote3];
+  } else if (highSwitch.checked == true) {
+    let originalPitch = midiNoteInput.note.number;
+    let velocity = midiNoteInput.note.rawAttack;
+    let midiNote2 = new Note(originalPitch + 7, { rawAttack: velocity });
 
-        //HARMONIZER VOICES OUTPUT
+    return [midiNote1, midiNote2];
+  } else if (lowSwitch.checked == true) {
+    let originalPitch = midiNoteInput.note.number;
+    let velocity = midiNoteInput.note.rawAttack;
+    let midiNote3 = new Note(originalPitch - 7, { rawAttack: velocity });
 
-    if (highSwitch.checked == true) {
-      let originalPitch = midiNoteInput.note.number;
-      let velocity = midiNoteInput.note.rawAttack;
-      let midiNote2 = new Note(originalPitch +7, { rawAttack: velocity })
-  
-      return midiNote2;
-    };
-
-    if (lowSwitch.checked == true) {
-      let originalPitch = midiNoteInput.note.number;
-      let velocity = midiNoteInput.note.rawAttack;
-      let midiNote3 = new Note(originalPitch -7, { rawAttack: velocity })
-  
-      return midiNote3;
-      };
-
-    if (lowSwitch.checked == true && highSwitch.checked == true) {
-      let originalPitch = midiNoteInput.note.number;
-      let velocity = midiNoteInput.note.rawAttack;
-      let midiNote3 = new Note(originalPitch -7, { rawAttack: velocity })
-      let midiNote2 = new Note(originalPitch +7, { rawAttack: velocity })
-
-      return midiNote2, midiNote3;
-    }
-
+    return [midiNote1, midiNote3];
+  } else {
     return midiNote1;
-  };
+  }
+};
 
-  // console.log(highSwitch);
-  // console.log(lowSwitch);
-
-
-
-
-
+// console.log(highSwitch);
+// console.log(lowSwitch);
 
 //~~~~~~~~~~~~~~~~ DELAY KNOB FUNCTION ~~~~~~~~~~~~~~~~~~~
 
@@ -101,8 +83,6 @@ const delayFunc = function (midiNoteInput) {
   let originalPitch = midiNoteInput.note.number;
   let velocity = midiNoteInput.note.rawAttack;
 
-
-
   let delayNote = new Note(originalPitch, { rawAttack: velocity });
 
   //   setTimeout(() => {
@@ -112,9 +92,7 @@ const delayFunc = function (midiNoteInput) {
   return delayNote;
 };
 
-
 // //~~~~~~~~~~~~~~~~ DELAY APPLICATION ~~~~~~~~~~~~~~~~~~~
-
 
 // var delay = function (midiNoteInput) {
 
@@ -126,18 +104,9 @@ const delayFunc = function (midiNoteInput) {
 
 // console.log(delayTime);
 
-
-
-
 // add velocity and decay to delay!!!!!
 
-
-
-
-
-
-
-  //if you divide a MIDI note number by 12, the remainder will tell you the MIDI pitch class of the number (what note it is) numbers 0-11
+//if you divide a MIDI note number by 12, the remainder will tell you the MIDI pitch class of the number (what note it is) numbers 0-11
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -149,11 +118,10 @@ dropIns.addEventListener("change", function () {
   }
   if (myInput.hasListener("noteoff")) {
     myInput.removeListener("noteoff");
-  };
+  }
 
   // Change the input device based on the user's selection in the dropdown.
   myInput = WebMidi.inputs[dropIns.value];
-
 
   // After changing the input device, add new listeners for 'noteon' and 'noteoff' events.
   // These listeners will handle MIDI note on (key press) and note off (key release) messages.
@@ -163,9 +131,9 @@ dropIns.addEventListener("change", function () {
     myOutput.sendNoteOn(midiProcess(someMIDI));
     // delayOutput.sendNoteOn(delayFunc(someMIDI));
     let delayTime = 0;
-    delayKnob.addEventListener("change", function(){
-    delayTime = delayKnob.value;
-    console.log(delayTime);
+    delayKnob.addEventListener("change", function () {
+      delayTime = delayKnob.value;
+      console.log(delayTime);
     });
 
     setTimeout(() => {
@@ -195,4 +163,3 @@ dropOuts.addEventListener("change", function () {
 //standard midi data message is 3 bytes
 //8 bits in a byte
 //timecode pitch 0-127 velocity 0-127
-
