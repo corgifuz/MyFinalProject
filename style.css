@@ -1,0 +1,199 @@
+
+.jacquard-12-charted-regular {
+  font-family: "Jacquard 12 Charted", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.jacquard-24-regular {
+  font-family: "Jacquard 24", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body{
+    background: rgb(244, 254, 244);
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    align-items: flex-center;
+  }
+
+  .ins{
+    position: absolute;
+    top: 120px; left: 100px;
+  }
+
+  .outs{
+    position: absolute;
+    top: 145px; left: 100px;
+  }
+
+  h1{
+    position: absolute;
+    left: 100px;
+    font-family: "Jacquard 24", system-ui;
+    font-size:400%
+  }
+
+  h2{
+    position: absolute;
+    right: 100px;
+    font-family: "Jacquard 24", system-ui;
+    font-size:350%
+  }
+
+  .arch{
+    zoom: 70%;
+    position: absolute;
+    top: -75px;
+  }
+
+  .cherubs{
+    position: absolute;
+    z-index: front;
+    zoom: .5;
+  }
+
+  
+
+  
+  .pedal {
+    background:#97aff2;
+    position:absolute;
+    left:468px;
+    top: 3cm;
+    width:270px;
+    height:500px;
+    border-radius:10px;
+    zoom: 1.19;
+  }
+  
+    .top {
+      position:relative;
+      width:260px;
+      height:170px;
+      border-top:5px solid #7065a3;
+      border-left:5px solid #7065a3;
+      border-right:5px solid #7065a3;
+      border-bottom:5px solid #7065a3;
+      border-radius:10px;
+    }
+  
+      .check-label{
+        position:absolute;
+        top:7px; left:118px;
+        font-size:9px;
+        font-family: monospace;
+
+      }
+  
+      .voiceOne-label{
+        position:absolute;
+        top:80px; left:27px;
+        font-size:16px;
+        font-family: monospace;
+      }
+  
+      .delay-label{
+        position:absolute;
+        top:37px; left:112px;
+        font-size:14px;
+        font-family: monospace;
+      }
+  
+      .voiceTwo-label{
+        position:absolute;
+        top:80px; right:27px;
+        font-size:16px;
+        font-family: monospace;
+      }
+  
+  
+      .check-indicator{
+        background:red;
+        position:absolute;
+        top:20px; left:130px;
+        width:10px;
+        height:10px;
+        border-radius:100px;
+      }
+  
+      .voiceOne-knob{
+        position:absolute;
+        left: 1px;
+      }
+  
+      .delay-knob{
+        position:absolute;
+        top:40px; left:85px;
+      }
+  
+      .voiceTwo-knob{
+        position:absolute;
+        right: 1px;
+
+      }
+  
+    .bottom {
+      position:relative;
+      width:260px;
+      height:310px;
+      border-top:5px solid #7065a3;
+      border-left:5px solid #7065a3;
+      border-right:5px solid #7065a3;
+      border-bottom:5px solid #7065a3;
+      border-radius:10px;
+    }
+  
+      .output-label{
+        position:absolute;
+        top:20px; left:30px;
+        font-size:16px;
+        font-family: monospace;
+      }
+  
+      .input-label{
+        position:absolute;
+        top:20px; left:180px;
+        font-size:16px;
+        font-family: monospace;
+      }
+  
+      .button{
+        position:relative;
+        top:140px; left:10px;
+        background:#3D3236;
+        width:240px;
+        height:150px;
+        border-radius:10px;
+      }
+  
+      .input {
+        position:absolute;
+        top:15px; left:265px;
+        background:#3D3236;
+        width:30px;
+        height:30px;
+        border-radius:10px;
+      }
+  
+      .output {
+        position:absolute;
+        top:15px; right:265px;
+        background:#3D3236;
+        width:30px;
+        height:30px;
+        border-radius:10px;
+      }
+  
+      .base {
+        position:absolute;
+        background:#382E2E;
+        bottom:-25px; left:110px;
+        width:40px;
+        height:20px;
+        border-radius:2px;
+      };
+
+

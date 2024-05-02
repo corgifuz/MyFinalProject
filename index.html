@@ -1,0 +1,98 @@
+<!doctype html>
+<!-- The doctype declaration above tells the web browser about the document type and version of HTML. -->
+
+<html>
+  <head>
+    <!-- The head section contains meta information, scripts, and links to external resources. -->
+    <title>cool stuff</title>
+    <!-- The title tag sets the title of the web page as it appears in the browser tab. -->
+
+    <!-- This script tag links to the WebMidi.js library, enabling MIDI functionality in the web browser. -->
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
+
+    <!-- This script tag links to the external JavaScript file that contains the logic for handling MIDI devices. -->
+    <script src="script.js" type="module"></script>
+    <script src="input-knobs.js" type="module"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ========= FONTS ========= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12+Charted&family=Jacquard+24&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- The body section contains the content of the web page. -->
+    <h1>Heaven's Echo</h1>
+    <!-- An h1 header that provides a title or a brief description of the page's purpose. -->
+    <h2>MIDI Voice Pedal</h2>
+
+    <div class="ins">
+      <!-- A division or a section in an HTML document, used here to group the input device selector. -->
+      <label for="dropdown-ins">Select a MIDI Input:</label>
+      <!-- The label tag defines a label for the select element below. The 'for' attribute specifies which form element the label is bound to. -->
+      <select id="dropdown-ins">
+        <!-- The select tag represents a drop-down list. The id attribute is used to identify the element in CSS and JavaScript. -->
+        <!-- Options for the drop-down list are dynamically added through the script.js file. -->
+      </select>
+    </div>
+
+    <div class="outs">
+      <!-- Another division for grouping the output device selector. -->
+      <label for="dropdown-outs">Select a MIDI Output:</label>
+      <!-- Similar to the input label, this defines a label for the MIDI output selector. -->
+      <select id="dropdown-outs">
+        <!-- This select element is for choosing a MIDI output device. -->
+        <!-- Like the input selector, options are added dynamically via script.js. -->
+      </select>
+    </div>
+
+    <div class="arch">
+      <img src="arch.png" alt="arch">
+      <!--img credit to https://pixabay.com/illustrations/arch-architecture-romance-building-4885584/-->
+    </div>
+
+    <div class="cherubs">
+      <img src="cherubs.gif" alt="cherubs">
+      <!--img credit to pinterest.com-->
+    </div>
+
+
+    <div class="pedal">
+      <div class="top">
+        <label class="check-label">CHECK</label>
+        <label class="voiceOne-label">HIGH</label>
+        <label class="delay-label">DELAY</label>
+        <label class="voiceTwo-label">LOW</label>
+        <div class="check-indicator"></div>
+        <div class="voiceOne">
+          <div class="voiceOne-knob">
+            <input id="voiceOne-knob" type="checkbox" class="input-switch" data-src="switch_offon.png" data-diameter="80"/>
+          </div>
+        </div>
+        <div class="delay">
+          <div class="delay-knob">
+            <input id="delay-knob" type="range" min="0" max="10" value="0" class="input-knob" data-diameter="95" data-src="knob70.png" data-sprites="100"/>
+          </div>
+        </div>
+        <div class="voiceTwo">
+          <div class="voiceTwo-knob">
+            <input id="voiceTwo-knob" type="checkbox" class="input-switch" data-src="switch_offon.png" data-diameter="80"/>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <label class="output-label">OUTPUT</label>
+        <label class="input-label">INPUT</label>
+        <div class="input"></div>
+        <div class="output"></div> 
+        <div class="button"></div>
+        <div class="base"></div>
+        </div>
+      </div>
+  </body>
+</html>
+
+
+
+
